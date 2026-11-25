@@ -29,3 +29,12 @@ jobs:
           az group list \
             --query "[].{Name:name, Location:location}" \
             --output table
+
+      - name: Check Terraform state storage access
+        run: |
+          az storage blob list \
+            --account-name stalztfstatedc01 \
+            --container-name tfstate \
+            --auth-mode login \
+            --query "[].name" \
+            --output json
